@@ -19,7 +19,7 @@ resource "aws_launch_configuration" "test" {
   image_id                    = "${var.ami_id}"
   instance_type               = "${var.instance_type}"
   security_groups             = ["${aws_security_group.test.id}"]
-  associate_public_ip_address = false
+  associate_public_ip_address = "${var.associate_public_ip_address}"
 }
 
 resource "aws_autoscaling_group" "test" {
