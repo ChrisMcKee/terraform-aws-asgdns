@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "${var.aws_region}"
+  region = var.aws_region
 }
 
 module "vpc" {
@@ -23,6 +23,7 @@ module "vpc" {
 
 resource "aws_route53_zone" "test" {
   name          = "mybigfakedomain.testing"
-  vpc_id        = "${module.vpc.vpc_id}"
+  vpc_id        = module.vpc.vpc_id
   force_destroy = true
 }
+

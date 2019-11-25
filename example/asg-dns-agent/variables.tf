@@ -31,20 +31,20 @@ variable "cluster_name" {
 ////
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `eg` or `cp`)"
   default     = "test"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
   default     = "testing"
 }
 
 variable "name" {
-  type        = "string"
-  default     = "efs-provider"
+  type        = string
   description = "Name (e.g. `efs-provider`)"
   default     = "autodns"
 }
+

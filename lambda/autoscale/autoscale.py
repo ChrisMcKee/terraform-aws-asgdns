@@ -100,7 +100,7 @@ def process_message(message):
     if(len(publicIps) > 0): update_record(zone_id, publicIps, "ext-"+hostname, operation)
 
 
-# Picks out the message from a SNS message and deserializes it
+# Picks out the message from a SNS message and deserialises it
 def process_record(record):
     process_message(json.loads(record['Sns']['Message']))
 
