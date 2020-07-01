@@ -65,7 +65,7 @@ def update_record(zone_id, ips, hostname, operation):
                     'ResourceRecordSet': {
                         'Name': hostname,
                         'Type': 'A',
-                        'TTL': 120,
+                        'TTL': 30,
                         'ResourceRecords': ips
                     }
                 }
@@ -77,17 +77,9 @@ def update_record(zone_id, ips, hostname, operation):
 # Processes a scaling event
 # Builds a hostname from tag metadata, fetches a private IP, and updates records accordingly
 def process_message(message):
-    logger.info("Processing %s event", message['LifecycleTransition'])
-
-    if message['LifecycleTransition'] == "autoscaling:EC2_INSTANCE_LAUNCHING":
-        operation = "UPSERT"
-    elif message['LifecycleTransition'] == "autoscaling:EC2_INSTANCE_TERMINATING" or message['LifecycleTransition'] == "autoscaling:EC2_INSTANCE_LAUNCH_ERROR":
-        operation = "UPSERT"
-    else:
-        logger.error("Encountered unknown event type: %s", message['LifecycleTransition'])
-
+    
+    operation = "UPSERT"
     asg_name = message['AutoScalingGroupName']
-    instance_id = message['EC2InstanceId']
 
     hostname_pattern, zone_id = fetch_tag_metadata(asg_name,HOSTNAME_TAG_NAME).split("@")
     clusterName = fetch_tag_metadata(asg_name,'cluster')
